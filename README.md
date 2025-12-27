@@ -1,3 +1,3 @@
 # pizza_app
 
-A new Flutter project.
+Tutor marketplace app for students and tutors, built with Flutter + Firebase.

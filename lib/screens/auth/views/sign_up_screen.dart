@@ -20,6 +20,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 	IconData iconPassword = CupertinoIcons.eye_fill;
 	bool obscurePassword = true;
 	bool signUpRequired = false;
+  UserRole selectedRole = UserRole.student;
 
 	bool containsUpperCase = false;
 	bool containsLowerCase = false;
@@ -49,6 +50,44 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             children: [
               const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ChoiceChip(
+                        label: const Text('Student'),
+                        selected: selectedRole == UserRole.student,
+                        onSelected: (_) {
+                          setState(() {
+                            selectedRole = UserRole.student;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: ChoiceChip(
+                        label: const Text('Tutor'),
+                        selected: selectedRole == UserRole.tutor,
+                        onSelected: (_) {
+                          setState(() {
+                            selectedRole = UserRole.tutor;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if (selectedRole == UserRole.tutor)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    'Tutor profiles are reviewed before going live.',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: MyTextField(
@@ -156,7 +195,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "⚈  1 uppercase",
+                        "- 1 uppercase",
                         style: TextStyle(
                           color: containsUpperCase
                             ? Colors.green
@@ -164,7 +203,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       Text(
-                        "⚈  1 lowercase",
+                        "- 1 lowercase",
                         style: TextStyle(
                           color: containsLowerCase
                             ? Colors.green
@@ -172,7 +211,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       Text(
-                        "⚈  1 number",
+                        "- 1 number",
                         style: TextStyle(
                           color: containsNumber
                             ? Colors.green
@@ -185,7 +224,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "⚈  1 special character",
+                        "- 1 special character",
                         style: TextStyle(
                           color: containsSpecialChar
                             ? Colors.green
@@ -193,7 +232,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                       Text(
-                        "⚈  8 minimum character",
+                        "- 8 minimum character",
                         style: TextStyle(
                           color: contains8Length
                             ? Colors.green
@@ -233,6 +272,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           MyUser myUser = MyUser.empty;
                           myUser.email = emailController.text;
                           myUser.name = nameController.text;
+                          myUser.role = selectedRole;
                           
                           setState(() {
                             context.read<SignUpBloc>().add(

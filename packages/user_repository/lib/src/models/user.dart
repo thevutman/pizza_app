@@ -1,23 +1,29 @@
 import '../entities/entities.dart';
 
+enum UserRole {
+  student,
+  tutor,
+  unknown,
+}
+
 class MyUser {
   String userId;
   String email;
   String name;
-  bool hasActiveCart;
+  UserRole role;
 
   MyUser({
     required this.userId,
     required this.email,
     required this.name,
-    required this.hasActiveCart,
+    required this.role,
   });
 
   static final empty = MyUser(
 		userId: '', 
 		email: '', 
 		name: '',
-    hasActiveCart: false,
+    role: UserRole.unknown,
 	);
 
   MyUserEntity toEntity() {
@@ -25,7 +31,7 @@ class MyUser {
       userId: userId, 
       email: email, 
       name: name,
-      hasActiveCart: hasActiveCart,
+      role: role.name,
     );
   }
 
@@ -34,12 +40,21 @@ class MyUser {
       userId: entity.userId, 
       email: entity.email, 
       name: entity.name, 
-      hasActiveCart: entity.hasActiveCart
+      role: _roleFromString(entity.role),
     );
+  }
+
+  static UserRole _roleFromString(String value) {
+    for (final role in UserRole.values) {
+      if (role.name == value) {
+        return role;
+      }
+    }
+    return UserRole.unknown;
   }
 
   @override
   String toString() {
-    return 'MyUser: $userId, $email, $name, $hasActiveCart';
+    return 'MyUser: $userId, $email, $name, $role';
   }
 }

@@ -1,5 +1,5 @@
 name: pizza_app
-description: "A new Flutter project."
+description: "Tutor marketplace app for students and tutors."
 publish_to: 'none'
 version: 0.1.0
 
@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
-  font_awesome_flutter: ^10.6.0
+  google_fonts: ^6.1.0
 
   firebase_core: ^2.16.0
 
@@ -20,8 +20,8 @@ dependencies:
 
   user_repository:
     path: packages/user_repository
-  pizza_repository:
-    path: packages/pizza_repository
+  tutor_repository:
+    path: packages/tutor_repository
 
 dev_dependencies:
   flutter_test:

@@ -30,32 +30,34 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+		final theme = Theme.of(context);
+
     return Scaffold(
-			backgroundColor: Theme.of(context).colorScheme.background,
+			backgroundColor: theme.colorScheme.background,
 			body: SingleChildScrollView(
 				child: SizedBox(
 					height: MediaQuery.of(context).size.height,
 					child: Stack(
 						children: [
 							Align(
-								alignment: const AlignmentDirectional(20, -1.2),
+								alignment: const AlignmentDirectional(3.2, -1.2),
 								child: Container(
 									height: MediaQuery.of(context).size.width,
 									width: MediaQuery.of(context).size.width,
 									decoration: BoxDecoration(
 										shape: BoxShape.circle,
-										color: Theme.of(context).colorScheme.tertiary
+										color: theme.colorScheme.secondary
 									),
 								),
 							),
 							Align(
-								alignment: const AlignmentDirectional(2.7, -1.2),
+								alignment: const AlignmentDirectional(-2.0, -1.4),
 								child: Container(
 									height: MediaQuery.of(context).size.width / 1.3,
 									width: MediaQuery.of(context).size.width / 1.3,
 									decoration: BoxDecoration(
 										shape: BoxShape.circle,
-										color: Theme.of(context).colorScheme.primary
+										color: theme.colorScheme.primary
 									),
 								),
 							),
@@ -66,15 +68,33 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
 							Align(
 								alignment: Alignment.center,
 								child: SizedBox(
-									height: MediaQuery.of(context).size.height / 1.8,
+									height: MediaQuery.of(context).size.height / 1.5,
 									child: Column(
 										children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 16.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              'Tutorly',
+                              style: theme.textTheme.displaySmall?.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              'Learn smarter with trusted tutors',
+                              style: theme.textTheme.bodyMedium,
+                            ),
+                          ],
+                        ),
+                      ),
 											Padding(
 												padding: const EdgeInsets.symmetric(horizontal: 50.0),
 												child: TabBar(
 													controller: tabController,
-													unselectedLabelColor: Theme.of(context).colorScheme.onBackground.withOpacity(0.5),
-													labelColor: Theme.of(context).colorScheme.onBackground,
+													unselectedLabelColor: theme.colorScheme.onBackground.withOpacity(0.5),
+													labelColor: theme.colorScheme.onBackground,
 													tabs: const [
 														Padding(
 															padding: EdgeInsets.all(12.0),
